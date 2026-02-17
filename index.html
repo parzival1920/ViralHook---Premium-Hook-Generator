@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViralHook | Premium Hook Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Setup */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* gray-950 */
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .glass-input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #8b5cf6; /* violet-500 */
+            box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+            outline: none;
+        }
+
+        /* Background Glows */
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+            animation: pulse-slow 8s infinite alternate;
+        }
+        
+        .glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4c1d95; }
+        .glow-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #be185d; }
+        .glow-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #0f766e; opacity: 0.2; }
+
+        @keyframes pulse-slow {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        /* Animations */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-enter {
+            animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; 
+        }
+
+        /* Custom Scrollbar for Textarea */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        /* Utility for hook card stagger */
+        .hook-card {
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .hook-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(139, 92, 246, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-12 px-4 sm:px-6 relative">
+
+    <!-- Background Accents -->
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+    <div class="glow-blob glow-3"></div>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-2xl z-10 space-y-8">
+        
+        <!-- Header -->
+        <header class="text-center space-y-2 animate-enter" style="animation-delay: 0ms;">
+            <div class="inline-flex items-center justify-center px-3 py-1 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-medium tracking-wide mb-4">
+                ✨ AI-FREE VIRAL FORMULAS
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
+                Viral Hook Generator
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-md mx-auto">
+                Generate scroll-stopping hooks for your short-form content in milliseconds.
+            </p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="glass-panel rounded-2xl p-6 md:p-8 space-y-6 animate-enter" style="animation-delay: 100ms;">
+            
+            <!-- Input: Content Topic -->
+            <div class="space-y-2">
+                <label for="topic" class="block text-sm font-medium text-gray-300">What is your video about?</label>
+                <textarea 
+                    id="topic" 
+                    rows="2"
+                    placeholder="e.g. How to bake sourdough bread, Tips for coding interviews..." 
+                    class="glass-input w-full rounded-xl px-4 py-3 text-sm placeholder-gray-500 focus:ring-0"
+                ></textarea>
+            </div>
+
+            <!-- Grid: Platform & Tone -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label for="platform" class="block text-sm font-medium text-gray-300">Platform</label>
+                    <div class="relative">
+                        <select id="platform" class="glass-input w-full rounded-xl px-4 py-3 text-sm appearance-none cursor-pointer">
+                            <option value="TikTok">TikTok</option>
+                            <option value="Reels">Instagram Reels</option>
+                            <option value="Shorts">YouTube Shorts</option>
+                            <option value="LinkedIn">LinkedIn Video</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="tone" class="block text-sm font-medium text-gray-300">Tone</label>
+                    <div class="relative">
+                        <select id="tone" class="glass-input w-full rounded-xl px-4 py-3 text-sm appearance-none cursor-pointer">
+                            <option value="Viral">Viral & Hype</option>
+                            <option value="Emotional">Emotional & Personal</option>
+                            <option value="Educational">Educational & Value</option>
+                            <option value="Shock">Shock & Contrarian</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-400">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button 
+                onclick="generateHooks()"
+                class="w-full relative group overflow-hidden rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 p-[1px] focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+                <div class="relative bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl px-6 py-3.5 transition-all group-hover:brightness-110">
+                    <div class="flex items-center justify-center space-x-2">
+                        <span class="text-white font-semibold tracking-wide">Generate Hooks</span>
+                        <svg class="w-5 h-5 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                </div>
+            </button>
+
+        </section>
+
+        <!-- Output Section (Hidden by default) -->
+        <div id="results-container" class="hidden space-y-4">
+            <div class="flex items-center justify-between px-1">
+                <h2 class="text-lg font-semibold text-white">Generated Hooks</h2>
+                <span class="text-xs text-gray-400 bg-gray-800 px-2 py-1 rounded">Click to copy</span>
+            </div>
+            
+            <div id="hooks-list" class="space-y-3">
+                <!-- Hooks will be injected here via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-white text-gray-900 px-6 py-3 rounded-full shadow-2xl opacity-0 transition-opacity duration-300 pointer-events-none z-50 flex items-center space-x-2 font-medium text-sm">
+        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span>Copied to clipboard!</span>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Templates Data ---
+        const templates = {
+            Viral: [
+                "Stop doing {topic} like this (do this instead)",
+                "Nobody is talking about this {topic} hack...",
+                "The secret to {topic} that 99% of people miss",
+                "I tried {topic} for 30 days and here's what happened",
+                "This one mistake is killing your {topic} results",
+                "POV: You finally figured out {topic}",
+                "If you want to master {topic}, watch this",
+                "The {topic} industry doesn't want you to know this"
+            ],
+            Emotional: [
+                "I wish I knew this before starting {topic}...",
+                "The sad truth about {topic} nobody tells you",
+                "Why I almost gave up on {topic} (and why I didn't)",
+                "This {topic} tip changed my life forever",
+                "To the person struggling with {topic}, hear this",
+                "The moment I realized {topic} wasn't what I thought",
+                "Stop being so hard on yourself about {topic}",
+                "The real reason you aren't seeing results with {topic}"
+            ],
+            Educational: [
+                "3 steps to master {topic} in 2024",
+                "How to {topic} without wasting time",
+                "The ultimate guide to {topic} for beginners",
+                "My simple framework for {topic}",
+                "5 tools you need for {topic} right now",
+                "Stop {topic} the hard way (try this workflow)",
+                "The science behind why {topic} works",
+                "How I went from zero to hero in {topic}"
+            ],
+            Shock: [
+                "Your {topic} strategy is a lie.",
+                "Delete your {topic} app right now.",
+                "Unpopular opinion: {topic} is a waste of time unless...",
+                "Why you are failing at {topic} (Brutal Truth)",
+                "Stop listening to 'gurus' about {topic}",
+                "This {topic} advice is dangerous.",
+                "I'm exposing the truth about {topic}",
+                "Don't start {topic} until you watch this video"
+            ]
+        };
+
+        const universalTemplates = [
+            "Wait, you didn't know this about {topic}?",
+            "7 seconds to change how you see {topic}",
+            "The lazy person's guide to {topic}"
+        ];
+
+        // --- Core Functions ---
+
+        function cleanInput(text) {
+            // Basic cleanup to make the text fit better in templates
+            let clean = text.trim();
+            // Remove common starting phrases if they don't add value to the noun phrase
+            clean = clean.replace(/^(how to|learning to|ways to|tips for|guide to)\s+/i, "");
+            // Capitalize first letter strictly? No, let's keep it mostly lowercase for middle of sentence, 
+            // but templates handle capitalization at start.
+            // Actually, for "Stop doing {topic}", if topic is "Baking", it looks weird. 
+            // Let's force lowercase unless it's an acronym.
+            if (clean.length > 3 && clean !== clean.toUpperCase()) {
+                clean = clean.toLowerCase();
+            }
+            return clean;
+        }
+
+        function generateHooks() {
+            const topicInput = document.getElementById('topic').value;
+            const tone = document.getElementById('tone').value;
+            const resultsContainer = document.getElementById('results-container');
+            const hooksList = document.getElementById('hooks-list');
+
+            if (!topicInput.trim()) {
+                // Shake animation or red border could go here
+                document.getElementById('topic').focus();
+                return;
+            }
+
+            const cleanTopic = cleanInput(topicInput);
+            
+            // Get templates for the selected tone
+            let pool = templates[tone] || templates['Viral'];
+            // Mix in a universal one occasionally
+            pool = [...pool, ...universalTemplates];
+
+            // Shuffle and pick 5 unique
+            const shuffled = pool.sort(() => 0.5 - Math.random());
+            const selectedTemplates = shuffled.slice(0, 5);
+
+            // Clear previous results
+            hooksList.innerHTML = '';
+            
+            // Generate HTML
+            selectedTemplates.forEach((template, index) => {
+                const hookText = template.replace(/{topic}/g, cleanTopic);
+                
+                const card = document.createElement('div');
+                card.className = "hook-card glass-panel rounded-xl p-4 flex items-center justify-between cursor-pointer group opacity-0";
+                card.style.animation = `slideUpFade 0.4s ease forwards ${index * 100}ms`;
+                card.onclick = () => copyToClipboard(hookText);
+                
+                card.innerHTML = `
+                    <p class="text-gray-200 font-medium text-base pr-4 leading-relaxed">"${hookText}"</p>
+                    <button class="text-gray-500 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10" aria-label="Copy">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                `;
+                
+                hooksList.appendChild(card);
+            });
+
+            // Show container
+            resultsContainer.classList.remove('hidden');
+            
+            // Smooth scroll to results
+            setTimeout(() => {
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-4');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
